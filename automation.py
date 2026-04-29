@@ -218,8 +218,11 @@ import json
 from llm_prompt import LLMPrompt
 from parser import LlamaPDFParser
 from retrieval import MilvusEmbeddingManager
+from usegemini import GeminiQuotaError
 from ToLatex import md_to_latex
 from usegemini import ModelGemini
+# from usemistral import ModelMistral as ModelGemini
+# from usemistral import MistralQuotaError as GeminiQuotaError
 
 nest_asyncio.apply()
 
@@ -348,7 +351,7 @@ class PDFToMilvusAutomation:
         os.makedirs("./latex-output", exist_ok=True)
         with open('./paper.md', 'w', encoding='utf-8') as f:
             f.write(f"# {title.strip()}\n\n")
-            f.write("**AI-Generated Survey Paper • Gemini 1.5 Flash + Milvus + LlamaParse**\n\n")
+            f.write("**AI-Generated Survey Paper • Gemini 2.0 Flash + Milvus + LlamaParse**\n\n")
             f.write(f"## Abstract\n{response_data['abstract']}\n\n")
             f.write(f"## Introduction\n{response_data['intro']}\n\n")
             f.write(f"## Related Work\n{response_data['lit_review']}\n\n")
@@ -411,7 +414,11 @@ async def main():
         with open('./extracted/search_result.json', 'w', encoding='utf-8') as f:
             json.dump(search_result, f, indent=2, ensure_ascii=False)
 
-        await automation.generate_responses(search_result)
+        try:
+            await automation.generate_responses(search_result)
+        except GeminiQuotaError:
+            print("QUOTA_EXHAUSTED", file=sys.stderr)
+            sys.exit(2)
 
     else:
         print("Invalid mode. Use 'dump' or 'search'.")

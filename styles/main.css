@@ -1,0 +1,229 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+html, body, [class*="css"] {
+    font-family: 'Inter', sans-serif;
+}
+
+/* ── Hide Streamlit chrome ───────────────────────────────── */
+#MainMenu, footer, header { visibility: hidden; }
+.stDeployButton { display: none; }
+
+/* ── Page background ─────────────────────────────────────── */
+.stApp {
+    background: #080b14;
+    background-image: radial-gradient(ellipse at 20% 10%, #1a1040 0%, transparent 50%),
+                      radial-gradient(ellipse at 80% 80%, #0a2a1f 0%, transparent 50%);
+}
+
+/* ── Navbar ──────────────────────────────────────────────── */
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 2.5rem;
+    background: rgba(255,255,255,0.03);
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+    backdrop-filter: blur(10px);
+    border-radius: 0 0 16px 16px;
+    margin-bottom: 2.5rem;
+}
+.navbar-brand {
+    font-size: 1.7rem;
+    font-weight: 700;
+    background: linear-gradient(90deg, #7c6fff, #48cfad);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -0.5px;
+}
+.navbar-tagline {
+    font-size: 0.78rem;
+    color: #555e7a;
+    margin-top: 3px;
+    letter-spacing: 0.3px;
+}
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 14px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+}
+.badge-green {
+    background: rgba(72,207,173,0.1);
+    color: #48cfad;
+    border: 1px solid rgba(72,207,173,0.3);
+}
+.badge-red {
+    background: rgba(255,107,107,0.1);
+    color: #ff6b6b;
+    border: 1px solid rgba(255,107,107,0.3);
+}
+
+/* ── Section labels ──────────────────────────────────────── */
+.section-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #555e7a;
+    margin-bottom: 0.6rem;
+}
+
+/* ── Cards ───────────────────────────────────────────────── */
+.card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 16px;
+    padding: 1.8rem 2rem;
+    margin-bottom: 1.2rem;
+    transition: border-color 0.3s;
+}
+.card:hover {
+    border-color: rgba(124,111,255,0.3);
+}
+.card-icon {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+.card-title {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #c8cfe0;
+    margin-bottom: 0.3rem;
+}
+.card-desc {
+    font-size: 0.8rem;
+    color: #555e7a;
+    margin-bottom: 1.2rem;
+    line-height: 1.5;
+}
+
+/* ── Stat boxes ──────────────────────────────────────────── */
+.stat-row {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 1.5rem;
+}
+.stat-box {
+    flex: 1;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 10px;
+    padding: 0.9rem 1rem;
+    text-align: center;
+}
+.stat-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    background: linear-gradient(90deg, #7c6fff, #48cfad);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.stat-label {
+    font-size: 0.7rem;
+    color: #555e7a;
+    margin-top: 2px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* ── Divider ─────────────────────────────────────────────── */
+.divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+    margin: 1.5rem 0;
+}
+
+/* ── Streamlit overrides ─────────────────────────────────── */
+/* Main buttons */
+.main .stButton > button {
+    background: linear-gradient(135deg, #7c6fff, #48cfad) !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 10px !important;
+    padding: 0.55rem 1.5rem !important;
+    font-weight: 600 !important;
+    font-size: 0.9rem !important;
+    letter-spacing: 0.2px !important;
+    transition: opacity 0.2s, transform 0.1s !important;
+    box-shadow: 0 4px 20px rgba(124,111,255,0.3) !important;
+}
+.main .stButton > button:hover {
+    opacity: 0.88 !important;
+    transform: translateY(-1px) !important;
+}
+.main .stButton > button:active {
+    transform: translateY(0px) !important;
+}
+
+/* Sidebar */
+section[data-testid="stSidebar"] {
+    background: rgba(8,11,20,0.95) !important;
+    border-right: 1px solid rgba(255,255,255,0.06) !important;
+}
+section[data-testid="stSidebar"] .stButton > button {
+    background: rgba(255,107,107,0.1) !important;
+    color: #ff6b6b !important;
+    border: 1px solid rgba(255,107,107,0.3) !important;
+    border-radius: 8px !important;
+    font-weight: 600 !important;
+    transition: all 0.2s !important;
+}
+section[data-testid="stSidebar"] .stButton > button:hover {
+    background: rgba(255,107,107,0.2) !important;
+}
+
+/* Inputs */
+.stTextInput > div > div > input {
+    background: rgba(255,255,255,0.04) !important;
+    border: 1px solid rgba(255,255,255,0.1) !important;
+    border-radius: 10px !important;
+    color: #c8cfe0 !important;
+    font-size: 0.9rem !important;
+    transition: border-color 0.2s !important;
+}
+.stTextInput > div > div > input:focus {
+    border-color: rgba(124,111,255,0.6) !important;
+    box-shadow: 0 0 0 3px rgba(124,111,255,0.1) !important;
+}
+.stTextInput > div > div > input::placeholder { color: #3a4060 !important; }
+
+/* Text areas */
+.stTextArea > div > div > textarea {
+    background: rgba(255,255,255,0.03) !important;
+    border: 1px solid rgba(255,255,255,0.08) !important;
+    border-radius: 10px !important;
+    color: #8a93b0 !important;
+    font-size: 0.82rem !important;
+    font-family: 'JetBrains Mono', monospace !important;
+}
+
+/* File uploader */
+[data-testid="stFileUploader"] > div {
+    background: rgba(255,255,255,0.02) !important;
+    border: 1.5px dashed rgba(124,111,255,0.3) !important;
+    border-radius: 12px !important;
+    transition: border-color 0.2s !important;
+}
+[data-testid="stFileUploader"] > div:hover {
+    border-color: rgba(124,111,255,0.6) !important;
+}
+
+/* Selectbox */
+.stSelectbox > div > div {
+    background: rgba(255,255,255,0.04) !important;
+    border: 1px solid rgba(255,255,255,0.1) !important;
+    border-radius: 10px !important;
+    color: #c8cfe0 !important;
+}
+
+/* Columns gap */
+[data-testid="column"] { padding: 0 0.5rem !important; }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #2a2d3e; border-radius: 3px; }
