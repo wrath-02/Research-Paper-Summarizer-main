@@ -100,7 +100,7 @@
 #     # Add title and author at the top
 #     if title:
 #         tex_content.append(f"\\title{{{title}}}\n")
-#     tex_content.append("\\author{Artificial Intelligence}\n")
+#     tex_content.append("\\author{AI-Generated Survey}\n")
 #     tex_content.append("\\date{\\today}\n")
 #     tex_content.append("\\maketitle\n")
 #     tex_content.append("\\noindent\n")
@@ -184,6 +184,24 @@ def md_to_latex(md_file, tex_file, pdf_file):
                 body_content.append("\n")
             continue
 
+        # Detect markdown headers BEFORE escaping '#' characters
+        if line.startswith("### "):
+            body_content.append(f"\\subsection*{{{line[4:].strip()}}}\n")
+            continue
+
+        if line.startswith("## "):
+            header_text = line[3:].strip()
+            if header_text == "References":
+                references_section = True
+            else:
+                references_section = False
+            body_content.append(f"\\section*{{{header_text}}}\n")
+            continue
+
+        if line.startswith("# ") and not title:
+            title = line[2:].strip()
+            continue
+
         # Escape special LaTeX characters
         line = line.replace("&", "\\&").replace("%", "\\%").replace("#", "\\#")
 
@@ -191,27 +209,8 @@ def md_to_latex(md_file, tex_file, pdf_file):
         line = re.sub(r"\*\*(.*?)\*\*", r"\\textbf{\1}", line)
         line = re.sub(r"\*(.*?)\*", r"\\textit{\1}", line)
 
-        # Title
-        if line.startswith("# ") and not title:
-            title = line[2:].strip()
-
-        # Main sections (## )
-        elif line.startswith("## "):
-            header_text = line[3:].strip()
-            if header_text == "References":
-                references_section = True
-                # DO NOT add \begin{thebibliography} here!
-                body_content.append(f"\\section*{{{header_text}}}\n")
-            else:
-                references_section = False
-                body_content.append(f"\\section*{{{header_text}}}\n")
-
-        # Subsections (### )
-        elif line.startswith("### "):
-            body_content.append(f"\\subsection*{{{line[4:].strip()}}}\n")
-
         # Handle references [1] Author...
-        elif references_section:
+        if references_section:
             match = re.match(r"\[(\d+)\]\s*(.+)", line)
             if match:
                 ref_id, ref_text = match.groups()
@@ -254,7 +253,7 @@ def md_to_latex(md_file, tex_file, pdf_file):
     # Title and metadata
     if title:
         tex_content.append(f"\\title{{{title}}}\n")
-    tex_content.append("\\author{Artificial Intelligence}\n")
+    tex_content.append("\\author{AI-Generated Survey}\n")
     tex_content.append("\\date{\\today}\n")
     tex_content.append("\\maketitle\n")
     tex_content.append("\\noindent\n")

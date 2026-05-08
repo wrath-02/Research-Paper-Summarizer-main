@@ -342,10 +342,8 @@ class PDFToMilvusAutomation:
                 get_prompt.prompt_for_caption(best_caption_text, best_image)
             )
 
-        # Generate title
-        title_query = search_result.get("query") or "this research field"
-        title_prompt = f"Generate a concise, academic survey paper title (8–15 words) for a paper about: {title_query}"
-        title = await gemini.gemini_response(title_prompt)
+        # Use the user's query directly as the title
+        title = search_result.get("query") or "Research Survey"
 
         # === Write final paper.md ===
         os.makedirs("./latex-output", exist_ok=True)
